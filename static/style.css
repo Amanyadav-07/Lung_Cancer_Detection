@@ -1,0 +1,153 @@
+/* General Page Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin: 0;
+}
+
+/* Main Container */
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    margin: auto;
+    animation: fadeIn 1.2s ease-in-out;
+}
+
+/* Healthcare Banner */
+.header-img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Title & Subtitle */
+.title {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* Upload Form */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Custom File Upload Button */
+.custom-file-upload {
+    display: inline-block;
+    padding: 12px 25px;
+    background: #ffeb3b;
+    color: black;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: background 0.3s ease-in-out;
+}
+
+.custom-file-upload:hover {
+    background: #fdd835;
+}
+
+/* Hide Default File Input */
+input[type="file"] {
+    display: none;
+}
+
+/* Upload Button */
+.upload-btn {
+    background: #4caf50;
+    color: white;
+    font-size: 18px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.upload-btn:hover {
+    background: #388e3c;
+    transform: scale(1.05);
+}
+
+/* Uploaded Image */
+.uploaded-img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 10px;
+    margin-top: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Result Section */
+.alert, .healthy {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.alert {
+    background: rgba(255, 0, 0, 0.2);
+}
+
+.healthy {
+    background: rgba(0, 255, 0, 0.2);
+}
+
+/* Result GIF */
+.result-gif {
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+/* Result Text */
+.alert-text {
+    font-size: 22px;
+    color: red;
+}
+
+.healthy-text {
+    font-size: 22px;
+    color: #4caf50;
+}
+
+/* Home Button */
+.home-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: #008CBA;
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.home-btn:hover {
+    background: #007bb5;
+    transform: scale(1.05);
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
