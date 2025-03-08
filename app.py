@@ -9,7 +9,7 @@ import gdown  # Install using: pip install gdown
 
 app = Flask(__name__)
 # Google Drive file ID
-file_id = "https://drive.google.com/file/d/1VPollmB85-K4jYdBtobQLZ0T02Jv8txG/view?usp=drive_link"
+file_id = "https://drive.google.com/file/d/1VPollmB85-K4jYdBtobQLZ0T02Jv8txG/view?usp=sharing"
 
 # Destination file path
 model_path = "Lung_Cancer_model.keras"
