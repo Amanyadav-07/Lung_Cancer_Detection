@@ -7,7 +7,7 @@ import gdown
 import warnings
 
 warnings.filterwarnings("ignore")
-
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # Disable GPU
 app = Flask(__name__)
 
 # Google Drive file ID
