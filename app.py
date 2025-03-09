@@ -3,29 +3,30 @@ import numpy as np
 from flask import Flask, request, render_template
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
+import gdown
+import warnings
 
-import os
-import gdown  # Install using: pip install gdown
+warnings.filterwarnings("ignore")
 
 app = Flask(__name__)
-# Google Drive file ID
-file_id = "https://drive.google.com/file/d/1VPollmB85-K4jYdBtobQLZ0T02Jv8txG/view?usp=sharing"
 
-# Destination file path
+# Google Drive file ID
+file_id = "1VPollmB85-K4jYdBtobQLZ0T02Jv8txG"
+url = f"https://drive.google.com/uc?id={file_id}&export=download"
 model_path = "Lung_Cancer_model.keras"
 
-# Download the model if it doesn't exist
+# ✅ Only download the model if it doesn't already exist
 if not os.path.exists(model_path):
-    print("Downloading model from Google Drive...")
-    gdown.download(f"https://drive.google.com/uc?id={file_id}", model_path, quiet=False)
+    print("Downloading model...")
+    gdown.download(url, model_path, quiet=False)
+    print("Download Complete!")
+else:
+    print("Model already exists. Skipping download.")
 
-# Load the model
+# ✅ Load the model once
+print("Loading model...")
 model = load_model(model_path)
 print("Model loaded successfully!")
-
-# Load trained lung cancer model
-MODEL_PATH = "Lung_Cancer_model.keras"
-model = load_model(MODEL_PATH)
 
 # Ensure the upload folder exists
 UPLOAD_FOLDER = "static/uploads"
@@ -33,18 +34,17 @@ if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
 def preprocess_image(img_path):
-    """Preprocesses the image to match the model input shape."""
-    img = image.load_img(img_path, target_size=(150, 150))  # Resize image to match model
-    img_array = image.img_to_array(img)  # Convert to array
-    img_array = img_array / 255.0  # Normalize pixel values
-    img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension (1, 150, 150, 3)
+    """Preprocess the image to match the model input shape."""
+    img = image.load_img(img_path, target_size=(150, 150))  # Resize image
+    img_array = image.img_to_array(img) / 255.0  # Convert and normalize
+    img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
     return img_array
 
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        # Check if the file was uploaded
         if "file" not in request.files:
             return "No file uploaded", 400
 
@@ -60,14 +60,13 @@ def index():
         img_array = preprocess_image(filepath)
         prediction = model.predict(img_array)[0][0]  # Extract probability
 
-        # Calculate confidence percentage
+        # Calculate confidence
         confidence = prediction * 100 if prediction > 0.5 else (1 - prediction) * 100
         result = "Lung Cancer Detected" if prediction < 0.5 else "No Lung Cancer"
 
         return render_template("result.html", prediction=result, confidence=confidence, image_path=filepath)
 
     return render_template("index.html")
-
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=False)
